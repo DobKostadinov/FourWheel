@@ -1,0 +1,127 @@
+﻿@model FourWheels.Web.Models.WineReviewModels.WineReviewInputModel
+@{
+    ViewBag.Title = "Review wine";
+}
+<h1>Add wine review</h1>
+
+@using (Html.BeginForm("CreateNewCar", "WineReview", FormMethod.Post, new { @class = "form-group center-form" }))
+{
+    <form class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(x => x.CountryId, new { @class = "col-2 col-form-label" })
+            <br />
+            @Html.DropDownListFor(x => x.CountryId, this.ViewBag.CountriesDropdown as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control", @id = "countriesDropDown" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.RegionId, new { @class = "col-2 col-form-label" })
+            <br />
+            <div id="regionsDropDown-container">
+                @Html.DropDownListFor(x => x.RegionId, new List<SelectListItem>(), "--Select Country First--", new { @class = "form-control", @id = "regionsDropDown" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.WineryId, new { @class = "col-2 col-form-label" })
+            <br />
+            <div id="wineries-container">
+                @Html.DropDownListFor(x => x.WineryId, new List<SelectListItem>(), "--Select Region First--", new { @class = "form-control", @id = "wineriesDropDown" })
+                @Html.TextBox("Winery name", "", new { @class = "form-control hidden allWineriesH", @placeholder = "Add new winery name", @id = "wineryNameInput" })
+                <input type="button" class="hidden allWineriesH" value="Add winery" onclick="CreateWinery()" />
+            </div>
+        </div>
+
+
+
+          
+        @*<div class="form-group">
+            @Html.LabelFor(x => x.Wine.Name, new { @class = "col-2 col-form-label" })
+            <br />
+            <div id="wines-container">
+                @Html.DropDownListFor(x => x.Winery.Name, new List<SelectListItem>(), "--Select Region First--", new { @class = "form-control", @id = "winesDropDown" })
+                @Html.TextBoxFor(x => x.Winery.Name, new { @class = "form-control hidden allWineriesH", @placeholder = "Add new winery name" })
+            </div>
+        </div>*@
+
+       
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <input type="submit" class="btn btn-outline-primary" value="Create" />
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        $('#countriesDropDown').change(() => {
+            var id = $('#countriesDropDown').val();
+            console.log('countryId' + ' ' + id);
+            $.ajax({
+                type: "POST",
+                url: "/WineReview/GetRegionsByCountryId",
+                data: { id: id },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var region = "<select class='form-control' id='regionsDropDown' onchange='GetWineriesInput()'>";
+                    region = region + '<option value="">--Select Region--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        region = region + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    region = region + '</select>';
+                    $('#regionsDropDown-container').html(region);
+                }
+            });
+        })  
+    })
+
+    function GetWineriesInput() {
+        var id = $('#regionsDropDown').val();
+        $.ajax({
+            type: "POST",
+            url: "/WineReview/GetWineriesByRegionId",
+            data: { id: id },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data.length !== 0) {
+                    var winery = "<select class='form-control' id='wineriesDropDown'>";
+                    winery = winery + '<option value="">--Select Winery--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        winery = winery + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    winery = winery + '</select>';
+                    $('#wineries-container').html(winery);
+                } else {
+                    $('#wineriesDropDown').toggleClass('hidden');
+                    $('.allWineriesH').toggleClass('hidden');
+                }
+            }
+        });
+    }
+
+
+
+    function CreateWinery() {
+        var wineryName = $('#wineryNameInput').val();
+        var regionId = $('#regionsDropDown').val();
+        $.ajax({
+            type: "POST",
+            url: "/Winery/AddWinery",
+            data: { name: wineryName, regionId: regionId },
+            datatype: "json",
+            traditional: true,
+            success: function () {
+                $('#wineriesDropDown').toggleClass('hidden');
+                $('.allWineriesH').toggleClass('hidden');
+                GetWineriesInput();
+            }
+        });
+    }
+</script>  
