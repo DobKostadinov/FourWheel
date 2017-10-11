@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
+using FourWheels.Data.Models.Contracts;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-
-using FourWheels.Data.Models.Contracts;
 
 namespace FourWheels.Data.Models
 {

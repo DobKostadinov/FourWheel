@@ -22,17 +22,14 @@
         public const int MinCarMileage = 0;
         public const int MaxCarMileage = 4000000;
 
+        // Ad
+        public const int MinLengthAdTitle = 5;
+        public const int MaxLengthAdTitle = 100;
+        public const int MinCarPrice = 50;
+        public const int MaxCarPrice = 5000000;
 
-        // WineReview
-        public const int MinLengthWineReviewTitle = 5;
-        public const int MaxLengthWineReviewTitle = 40;
-        public const int MinLengthWineReviewOpinion = 10;
-        public const int MaxLengthWineReviewOpinion = 2000;
-        public const int MinWineReviewRating = 1;
-        public const int MaxWineReviewRating = 10;
-
-        // ReviewComment
-        public const int MinLengthReviewContent = 5;
-        public const int MaxLengthReviewContent = 200;
+        // CarFeature
+        public const int MinLengthCarFeature = 1;
+        public const int MaxLengthCarFeature = 50;
     }
 }

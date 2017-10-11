@@ -1,9 +1,8 @@
-﻿using FourWheels.Data.Models.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+using FourWheels.Common;
+using FourWheels.Data.Models.Abstracts;
 
 namespace FourWheels.Data.Models
 {
@@ -11,8 +10,14 @@ namespace FourWheels.Data.Models
     {
         public virtual Car Car { get; set; }
 
+        [Range(
+            DataModelsConstants.MinLengthAdTitle,
+            DataModelsConstants.MaxLengthAdTitle)]
         public string Title { get; set; }
 
+        [Range(
+            DataModelsConstants.MinCarPrice,
+            DataModelsConstants.MaxCarPrice)]
         public decimal Price { get; set; }
 
         public Guid TownId { get; set; }

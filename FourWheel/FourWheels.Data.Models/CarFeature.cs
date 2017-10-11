@@ -1,11 +1,10 @@
-﻿using FourWheels.Data.Models.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FourWheels.Data.Models.Contracts;
+using FourWheels.Common;
 
 namespace FourWheels.Data.Models
 {
@@ -23,9 +22,9 @@ namespace FourWheels.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(40)]
         [Index(IsUnique = true)]
+        [MinLength(DataModelsConstants.MinLengthCarFeature)]
+        [MaxLength(DataModelsConstants.MaxLengthCarFeature)]
         public string Name { get; set; }
 
         public virtual ICollection<Car> Cars

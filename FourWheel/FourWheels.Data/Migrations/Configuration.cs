@@ -2,12 +2,12 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 
+using FourWheels.Data.DbContexts;
+using FourWheels.Data.Models;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json.Linq;
-
-using FourWheels.Data.Models;
-using FourWheels.Data.DbContexts;
 
 namespace FourWheels.Data.Migrations
 {
@@ -22,6 +22,7 @@ namespace FourWheels.Data.Migrations
         protected override void Seed(FourWheelsSqlDbContext context)
         {
             this.SeedAdmin(context);
+            this.ImportCountriesAndRegions(context);
         }
 
         private void SeedAdmin(FourWheelsSqlDbContext context)
@@ -42,6 +43,31 @@ namespace FourWheels.Data.Migrations
                 userManager.Create(user, AdministratorPassword);
 
                 userManager.AddToRole(user.Id, "Admin");
+            }
+        }
+
+        private void ImportCountriesAndRegions(FourWheelsSqlDbContext context)
+        {
+            if (!context.Towns.Any())
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string townsAsJsonStr = client.DownloadString("https://api.myjson.com/bins/10p8s9");
+
+                    JArray towns = JArray.Parse(townsAsJsonStr);
+
+                    foreach (var town in towns)
+                    {
+                        var townName = town["city"].ToString();
+                        var newTown = new Town
+                        {
+                            Name = townName
+                        };
+
+                        context.Towns.AddOrUpdate(newTown);
+                        context.SaveChanges();
+                    }
+                }
             }
         }
     }

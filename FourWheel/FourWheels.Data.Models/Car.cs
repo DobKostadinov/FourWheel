@@ -1,12 +1,10 @@
-﻿using FourWheels.Common;
-using FourWheels.Data.Models.Abstracts;
-using FourWheels.Data.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FourWheels.Common;
+using FourWheels.Data.Models.Abstracts;
+using FourWheels.Data.Models.Enums;
 
 namespace FourWheels.Data.Models
 {
@@ -35,10 +33,16 @@ namespace FourWheels.Data.Models
 
         public virtual CarImage CarImage { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(CarType))]
         public CarType CarType { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(FuelType))]
         public FuelType FuelType { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(TransmissionType))]
         public TransmissionType TransmissionType { get; set; }
 
         public virtual Ad Ad { get; set; }

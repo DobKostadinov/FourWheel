@@ -1,10 +1,7 @@
-﻿using FourWheels.Data.Models.Contracts;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FourWheels.Data.Models.Contracts;
 
 namespace FourWheels.Data.Models
 {
