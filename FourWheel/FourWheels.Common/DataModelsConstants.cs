@@ -2,25 +2,26 @@
 {
     public class DataModelsConstants
     {
-        // Country
-        public const int MinLengthCountryName = 2;
-        public const int MaxLengthCountryName = 50;
+        // Town
+        public const int MinLengthTownName = 2;
+        public const int MaxLengthTownName = 50;
 
-        // Region
-        public const int MinLengthRegionName = 3;
-        public const int MaxLengthRegionName = 50;
+        // CarBrand
+        public const int MinLengthCarBrand = 2;
+        public const int MaxLengthCarBrand = 50;
 
-        // Winery
-        public const int MinLengthWineryName = 1;
-        public const int MaxLengthWineryName = 20;
+        // CarModel
+        public const int MinLengthCarModel = 1;
+        public const int MaxLengthCarModel = 20;
 
-        // Wine
-        public const int MinLengthWineName = 2;
-        public const int MaxLengthWineName = 20;
-        public const int MinLengthGrapeName = 4;
-        public const int MaxLengthGrapeName = 30;
-        public const int MinYearOfWineProduction = 1970;
-        public const int MaxYearOfWineProduction = 2017;
+        // MinManufacture Year
+        public const int MinManufactureYear = 1950;
+        public const int MaxManufactureYear = 2017;
+
+        // Mileage
+        public const int MinCarMileage = 0;
+        public const int MaxCarMileage = 4000000;
+
 
         // WineReview
         public const int MinLengthWineReviewTitle = 5;

@@ -14,6 +14,14 @@ namespace FourWheels.Data.Models
 {
     public class User : IdentityUser, IAuditable, IDeletable
     {
+        private ICollection<Ad> ads;
+        private ICollection<Car> cars;
+
+        public User()
+        {
+            this.ads = new HashSet<Ad>();
+            this.cars = new HashSet<Car>();
+        }
      
         [Index]
         public bool IsDeleted { get; set; }
@@ -27,7 +35,12 @@ namespace FourWheels.Data.Models
         [DataType(DataType.DateTime)]
         public DateTime? ModifiedOn { get; set; }
 
-
+        public virtual ICollection<Ad> Ads
+        {
+            get { return this.ads; }
+            set { this.ads = value; }
+        }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
