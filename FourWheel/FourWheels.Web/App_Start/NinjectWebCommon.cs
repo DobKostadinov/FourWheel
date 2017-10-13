@@ -12,10 +12,12 @@ namespace FourWheels.Web.App_Start
     using Ninject.Web.Common;
     using Ninject.Extensions.Conventions;
     using System.Data.Entity;
+    using FourWheels.Data.DbContexts;
     using FourWheels.Data.Repositories;
     using FourWheels.Data.UnitOfWork;
     using AutoMapper;
-    using FourWheels.Data.DbContexts;
+    using FourWheels.Services.Contracts;
+    using FourWheels.Services;
 
     public static class NinjectWebCommon 
     {
@@ -69,7 +71,7 @@ namespace FourWheels.Web.App_Start
         {
             kernel.Bind(x =>
             {
-                x.FromThisAssembly()
+                x.FromAssemblyContaining(typeof(IService))
                  .SelectAllClasses()
                  .BindDefaultInterface();
             });
@@ -80,7 +82,9 @@ namespace FourWheels.Web.App_Start
             kernel.Bind<IEfUnitOfWork>().To<EfUnitOfWork>().InRequestScope();
             kernel.Bind<IMapper>().ToMethod(x => Mapper.Instance).InSingletonScope();
 
+            kernel.Bind<ICarFeatureServices>().To<CarFeaturesServices>().InRequestScope();
+            //kernel.Bind<ICarServices>().To<CarServices>().InRequestScope();
 
-        }        
+        }
     }
 }
