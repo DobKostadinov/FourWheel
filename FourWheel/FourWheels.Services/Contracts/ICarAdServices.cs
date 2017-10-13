@@ -9,10 +9,9 @@ namespace FourWheels.Services.Contracts
 {
     public interface ICarAdServices : IService
     {
-        IEnumerable<CarAd> GetAll();
+        IQueryable<CarAd> GetAll();
 
-
-        //void AddNewCar(CarAd car);
+        CarAd GetAdById(Guid id);
 
         void AddNewCarAd(
             string title,

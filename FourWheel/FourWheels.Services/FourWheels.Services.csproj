@@ -48,7 +48,6 @@
     <Compile Include="CarBrandServices.cs" />
     <Compile Include="CarFeaturesServices.cs" />
     <Compile Include="CarModelServices.cs" />
-    <Compile Include="Contracts\IAdServices.cs" />
     <Compile Include="Contracts\ICarBrandServices.cs" />
     <Compile Include="Contracts\ICarFeatureServices.cs" />
     <Compile Include="Contracts\ICarModelServices.cs" />

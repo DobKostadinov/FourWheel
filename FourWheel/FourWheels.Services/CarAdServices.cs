@@ -40,18 +40,17 @@ namespace FourWheels.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<CarAd> GetAll()
+        public IQueryable<CarAd> GetAll()
         {
-            return this.carsAdsRepo.All.ToList();
+            return this.carsAdsRepo.All;
+        }
+
+        public CarAd GetAdById(Guid id)
+        {
+           return this.carsAdsRepo.All.FirstOrDefault(x => x.Id == id);
         }
 
 
-
-        //public void AddNewCar(CarAd car)
-        //{
-        //    this.carsRepo.Add(car);
-        //    this.unitOfWork.Commit();
-        //}
 
         public void AddNewCarAd(
            string title,
