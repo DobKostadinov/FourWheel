@@ -1,0 +1,18 @@
+﻿@model FourWheels.Web.Models.CarViewModels.CarAdFullDetailsViewModel
+
+<p>@Model.AdInfo.Title</p>
+<img src =@Model.AdInfo.CarImageURL />
+<p>@Model.AdInfo.Brand @Model.AdInfo.Model</p>
+<p>@Model.AdInfo.Price</p>
+<p>@Model.AdInfo.CarType</p>
+<p>@Model.AdInfo.ManufactureYear</p>
+<p>@Model.AdInfo.FuelType</p>
+<p>@Model.AdInfo.Mileage</p>
+<p>@Model.AdInfo.TransmissionType</p>
+@foreach (var item in Model.AdInfo.CarFeatures)
+{
+    <p>@item</p>
+}
+<p>@Model.AdInfo.AdditionalInfo</p>
+<p>@Model.AdInfo.Town</p>
+@Html.Partial("_UserDetailsPartial", Model.UserDetails)
