@@ -14,13 +14,14 @@ namespace FourWheels.Web.Models.UserViewModels
 
         public string Email { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<UserDetailsViewModel, User>()
                 .ForMember(cardb => cardb.UserName, cfg => cfg.MapFrom(carfeautureView => carfeautureView.Username))
-                .ForMember(cardb => cardb.Email, cfg => cfg.MapFrom(carfeautureView => carfeautureView.Email));
-
-
+                .ForMember(cardb => cardb.Email, cfg => cfg.MapFrom(carfeautureView => carfeautureView.Email))
+                .ForMember(cardb => cardb.PhoneNumber, cfg => cfg.MapFrom(carfeautureView => carfeautureView.PhoneNumber));
         }
     }
 }
