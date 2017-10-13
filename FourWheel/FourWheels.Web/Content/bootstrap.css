@@ -248,7 +248,7 @@ th {
 
     a,
     a:visited {
-        text-decoration: underline;
+        text-decoration: none;
     }
 
         a[href]:after {
@@ -1431,8 +1431,8 @@ a {
 
     a:hover,
     a:focus {
-        color: #79a736;
-        text-decoration: underline;
+        color: black;
+        text-decoration: none;
     }
 
     a:focus {
@@ -1709,7 +1709,7 @@ mark,
 
 a.text-primary:hover,
 a.text-primary:focus {
-    color: #244363;
+    color: black;
 }
 
 .text-success {

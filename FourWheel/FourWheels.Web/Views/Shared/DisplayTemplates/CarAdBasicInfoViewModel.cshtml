@@ -1,0 +1,21 @@
+﻿@model FourWheels.Web.Models.CarViewModels.CarAdBasicInfoViewModel
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+    <div class="boxes clickable-ad">
+        <a class="clickable-ad" href="/CarAd/LoadAdFullDetails/@Model.CarAdId">
+            <div class="img-upper">
+                <img class="img-responsive" src=@Model.ImageURL>
+            </div>
+            <div class="description">
+                <h3>@Model.Brand @Model.Model</h3>
+                <p>@Model.ManufactureYear</p>
+                <p>@Model.CarFuel</p>
+            </div>
+            <div class="text-center">
+                <p>@Model.Price</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+@Styles.Render("~/Content/basicAad")

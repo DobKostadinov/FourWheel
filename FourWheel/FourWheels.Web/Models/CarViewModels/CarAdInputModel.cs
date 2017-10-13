@@ -54,7 +54,7 @@ namespace FourWheels.Web.Models.CarViewModels
 
         [Required]
         [Display(Name = "Car features")]
-        public IList<CarFeatureViewModel> CarFeatures { get; set; }
+        public IList<CarFeatureInputViewModel> CarFeatures { get; set; }
 
         [Required]
         [Display(Name = "Choose town")]

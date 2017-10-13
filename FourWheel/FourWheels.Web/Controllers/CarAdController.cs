@@ -12,6 +12,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNet.Identity;
 using Bytes2you.Validation;
 using System;
+using FourWheels.Web.Models.UserViewModels;
 
 namespace FourWheels.Web.Controllers
 {
@@ -51,16 +52,36 @@ namespace FourWheels.Web.Controllers
         [HttpGet]
         public ActionResult BrowseCarAds()
         {
-            var allAds = this.carAdServices.GetAll();
-
-            var model = allAds.Select(x => new CarAdViewModel
+            var ads = this.carAdServices
+               .GetAll()
+               .ProjectTo<CarAdBasicInfoViewModel>()
+               .ToList();
+            var model = new CarAdViewModel
             {
-                Brand = x.CarModel.CarBrand.Brand,
-                Model = x.CarModel.Model,
-                Town = x.Town.Name
-            });
+                CarAdBasicInfo = ads
+            };
 
             return this.View(model);
+        }
+
+        [HttpGet]
+        public ActionResult LoadAdFullDetails(Guid id)
+        {
+            var specifiedAd = this.carAdServices.GetAdById(id);
+            var user = specifiedAd.User;
+      
+            var adFullView = this.mapper.Map<CarAdFullInfoViewModel>(specifiedAd);
+            var userInfo = this.mapper.Map<UserDetailsViewModel>(user);
+
+
+            var model = new CarAdFullDetailsViewModel
+            {
+                AdInfo = adFullView,
+                UserDetails = userInfo
+            };
+
+            return this.View(model);
+
         }
 
 
@@ -102,7 +123,7 @@ namespace FourWheels.Web.Controllers
 
             var allFeatures = this.carFeatureServices
                 .GetAllCarFeatures()
-                .ProjectTo<CarFeatureViewModel>()
+                .ProjectTo<CarFeatureInputViewModel>()
                 .ToList();
 
             var model = new CarAdInputModel

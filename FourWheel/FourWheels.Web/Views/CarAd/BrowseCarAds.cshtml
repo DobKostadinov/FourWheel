@@ -1,0 +1,10 @@
+﻿@model FourWheels.Web.Models.CarViewModels.CarAdViewModel
+
+
+<div class="row" align="center">
+    @foreach (var item in @Model.CarAdBasicInfo)
+    {
+        @Html.Partial("_CarAdBasicInfoPartial", item);
+    }
+</div>
+

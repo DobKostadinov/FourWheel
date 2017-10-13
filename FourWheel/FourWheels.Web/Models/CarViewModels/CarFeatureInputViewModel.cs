@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace FourWheels.Web.Models.CarViewModels
 {
-    public class CarFeatureViewModel : IMapFrom<CarFeature>, IHaveCustomMappings
+    public class CarFeatureInputViewModel : IMapFrom<CarFeature>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -17,7 +17,7 @@ namespace FourWheels.Web.Models.CarViewModels
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<CarFeatureViewModel, CarFeature>()
+            configuration.CreateMap<CarFeatureInputViewModel, CarFeature>()
                 .ForMember(cardb => cardb.Id, cfg => cfg.MapFrom(carfeautureView => carfeautureView.Id))
                 .ForMember(cardb => cardb.Name, cfg => cfg.MapFrom(carfeautureView => carfeautureView.Name));
 
