@@ -1,0 +1,136 @@
+﻿@model FourWheels.Web.Models.CarViewModels.CarAdInputModel
+
+@using (Html.BeginForm("AddAd", "CarAd", FormMethod.Post, new { @class = "form-group center-form" }))
+{
+    <form class="form-horizontal">
+        <fieldset class="form-group row">
+            <legend>Add new car</legend>
+            <div class="form-group">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Title, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                </div>
+                
+
+                @Html.Label("Brand", new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.DropDownList("brandsDropDown", this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.CarModelId, new { @class = "col-2 col-form-label" })
+                <br />
+                <div id="modelsDropDown-container">
+                    @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.EnumDropDownListFor(x => x.CarType, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Mileage, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.TextBoxFor(x => x.Mileage, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Mileage, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.EnumDropDownListFor(x => x.FuelType, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.TransmissionType, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.EnumDropDownListFor(x => x.TransmissionType, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.CarFeatures, new { @class = "col-2 col-form-label" })
+                @for (int i = 0; i < Model.CarFeatures.Count; i++)
+                {
+                    <p>
+                        @Html.CheckBoxFor(m => m.CarFeatures[i].IsChecked)
+                        @Html.Label(Model.CarFeatures[i].Name)
+                        @Html.HiddenFor(m => m.CarFeatures[i].Id)
+                        @Html.HiddenFor(m => m.CarFeatures[i].Name)
+                    </p>
+                }
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.TownId, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.DropDownListFor(x => x.TownId, this.ViewBag.TownsDropDown as IEnumerable<SelectListItem>, "--Select town--", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Price, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.AdditionalInfo, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.TextAreaFor(x => x.AdditionalInfo, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.CarImageUrl, new { @class = "col-2 col-form-label" })
+                <br />
+                @Html.TextBoxFor(x => x.CarImageUrl, new { @class = "form-control" })
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-outline-primary submit-new-dealership" value="Create" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        $('#brandsDropDown').change(() => {
+            var id = $('#brandsDropDown').val();
+            $.ajax({
+                type: "POST",
+                url: "/CarAd/GetModelsByBrand",
+                data: { id: id },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var region = "<select class='form-control' id='CarModelId' name='CarModelId'>";
+                    region = region + '<option value="">--Select Model--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        region = region + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    region = region + '</select>';
+                    $('#modelsDropDown-container').html(region);
+                }
+            });
+        })
+    })
+</script>
