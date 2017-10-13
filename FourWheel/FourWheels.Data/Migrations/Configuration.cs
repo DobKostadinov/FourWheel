@@ -22,7 +22,9 @@ namespace FourWheels.Data.Migrations
         protected override void Seed(FourWheelsSqlDbContext context)
         {
             this.SeedAdmin(context);
-            this.ImportCountriesAndRegions(context);
+            this.ImportTowns(context);
+            this.ImportBrandsAndModels(context);
+            this.ImportCarFeatures(context);
         }
 
         private void SeedAdmin(FourWheelsSqlDbContext context)
@@ -46,7 +48,7 @@ namespace FourWheels.Data.Migrations
             }
         }
 
-        private void ImportCountriesAndRegions(FourWheelsSqlDbContext context)
+        private void ImportTowns(FourWheelsSqlDbContext context)
         {
             if (!context.Towns.Any())
             {
@@ -65,6 +67,72 @@ namespace FourWheels.Data.Migrations
                         };
 
                         context.Towns.AddOrUpdate(newTown);
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private void ImportBrandsAndModels(FourWheelsSqlDbContext context)
+        {
+            if (!context.CarBrands.Any() &&
+                !context.CarModels.Any())
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string brandsAndModelsAsString = client.DownloadString("https://api.myjson.com/bins/1es58p");
+
+                    JArray brandsAndModels = JArray.Parse(brandsAndModelsAsString);
+
+                    foreach (var brandModels in brandsAndModels)
+                    {
+                        var brand = brandModels["brand"].ToString();
+                        var newBrand = new CarBrand
+                        {
+                            Brand = brand
+                        };
+
+                        context.CarBrands.AddOrUpdate(newBrand);
+
+                        var models = brandModels["models"];
+
+                        foreach (var model in models)
+                        {
+                            var modelName = model.ToString();
+                            var newModel = new CarModel
+                            {
+                                Model = modelName,
+                                CarBrandId = newBrand.Id,
+                            };
+
+
+                            context.CarModels.AddOrUpdate(newModel);
+                        }
+
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private void ImportCarFeatures(FourWheelsSqlDbContext context)
+        {
+            if (!context.CarFeatures.Any())
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string carFeaturesJsonStr = client.DownloadString("https://api.myjson.com/bins/ysw4x");
+
+                    JArray carFeature = JArray.Parse(carFeaturesJsonStr);
+
+                    foreach (var feature in carFeature)
+                    {
+                        var newFeature = new CarFeature
+                        {
+                            Name = feature.ToString()
+                        };
+
+                        context.CarFeatures.AddOrUpdate(newFeature);
                         context.SaveChanges();
                     }
                 }

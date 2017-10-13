@@ -75,11 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\BaseDataModel.cs" />
-    <Compile Include="Ad.cs" />
-    <Compile Include="Car.cs" />
+    <Compile Include="CarAd.cs" />
     <Compile Include="CarBrand.cs" />
     <Compile Include="CarFeature.cs" />
-    <Compile Include="CarImage.cs" />
     <Compile Include="CarModel.cs" />
     <Compile Include="Contracts\IAuditable.cs" />
     <Compile Include="Contracts\IBaseDataModel.cs" />

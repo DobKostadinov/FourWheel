@@ -8,7 +8,7 @@ namespace FourWheels.Data.Repositories
     {
         IQueryable<T> All { get; }
 
-        IQueryable<T> AllAndDeleted { get; }
+        //IQueryable<T> AllAndDeleted { get; }
 
         T GetById(Guid id);
 

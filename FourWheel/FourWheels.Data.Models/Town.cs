@@ -9,11 +9,11 @@ namespace FourWheels.Data.Models
 {
     public class Town : BaseDataModel
     {
-        private ICollection<Ad> ads;
+        private ICollection<CarAd> carAds;
 
         public Town()
         {
-            this.ads = new HashSet<Ad>();
+            this.carAds = new HashSet<CarAd>();
         }
 
         [Required]
@@ -22,10 +22,10 @@ namespace FourWheels.Data.Models
         [MaxLength(DataModelsConstants.MaxLengthTownName)]
         public string Name { get; set; }
 
-        public virtual ICollection<Ad> Ads
+        public virtual ICollection<CarAd> CarAds
         {
-            get { return this.ads; }
-            set { this.ads = value; }
+            get { return this.carAds; }
+            set { this.carAds = value; }
         }
     }
 }

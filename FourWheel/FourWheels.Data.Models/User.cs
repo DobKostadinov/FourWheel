@@ -14,13 +14,11 @@ namespace FourWheels.Data.Models
 {
     public class User : IdentityUser, IAuditable, IDeletable
     {
-        private ICollection<Ad> ads;
-        private ICollection<Car> cars;
+        private ICollection<CarAd> carAds;
 
         public User()
         {
-            this.ads = new HashSet<Ad>();
-            this.cars = new HashSet<Car>();
+            this.carAds = new HashSet<CarAd>();
         }
      
         [Index]
@@ -35,10 +33,10 @@ namespace FourWheels.Data.Models
         [DataType(DataType.DateTime)]
         public DateTime? ModifiedOn { get; set; }
 
-        public virtual ICollection<Ad> Ads
+        public virtual ICollection<CarAd> CarAds
         {
-            get { return this.ads; }
-            set { this.ads = value; }
+            get { return this.carAds; }
+            set { this.carAds = value; }
         }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

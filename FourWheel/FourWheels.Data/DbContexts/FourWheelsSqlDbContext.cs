@@ -9,7 +9,7 @@ using FourWheels.Data.Models.Contracts;
 
 namespace FourWheels.Data.DbContexts
 {
-    public class FourWheelsSqlDbContext : IdentityDbContext<User>, IFourWheelsSqlDbContext
+    public class FourWheelsSqlDbContext : IdentityDbContext<User>
     {
         public FourWheelsSqlDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -18,29 +18,13 @@ namespace FourWheels.Data.DbContexts
 
         public virtual IDbSet<Town> Towns { get; set; }
 
-        public virtual IDbSet<Ad> Ads { get; set; }
-
-        public virtual IDbSet<Car> Cars { get; set; }
+        public virtual IDbSet<CarAd> CarAds { get; set; }
 
         public virtual IDbSet<CarBrand> CarBrands { get; set; }
 
         public virtual IDbSet<CarModel> CarModels { get; set; }
 
         public virtual IDbSet<CarFeature> CarFeatures { get; set; }
-
-        public virtual IDbSet<CarImage> CarImages { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Car>()
-                .HasOptional(i => i.CarImage)
-                .WithRequired(a => a.Car);
-
-            modelBuilder.Entity<Ad>()
-                .HasOptional(i => i.Car)
-                .WithRequired(a => a.Ad);
-        }
 
         public static FourWheelsSqlDbContext Create()
         {

@@ -4,22 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using FourWheels.Common;
-using FourWheels.Data.Models.Contracts;
+using FourWheels.Data.Models.Abstracts;
 
 namespace FourWheels.Data.Models
 {
-    public class CarBrand : IIdentifiable
+    public class CarBrand : BaseDataModel
     {
         private ICollection<CarModel> models;
 
         public CarBrand()
         {
-            this.Id = Guid.NewGuid();
             this.models = new HashSet<CarModel>();
         }
-
-        [Key]
-        public Guid Id { get; set; }
 
         [Required]
         [Index(IsUnique = true)]

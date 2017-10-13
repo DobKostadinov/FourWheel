@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using FourWheels.Data.Models.Contracts;
 using FourWheels.Common;
+using FourWheels.Data.Models.Abstracts;
 
 namespace FourWheels.Data.Models
 {
-    public class CarFeature : IIdentifiable
+    public class CarFeature : BaseDataModel
     {
-        private ICollection<Car> cars;
+        private ICollection<CarAd> cars;
 
         public CarFeature()
         {
-            this.Id = Guid.NewGuid();
-            this.cars = new HashSet<Car>();
+            this.cars = new HashSet<CarAd>();
         }
-
-        [Key]
-        public Guid Id { get; set; }
 
         [Required]
         [Index(IsUnique = true)]
@@ -27,7 +22,7 @@ namespace FourWheels.Data.Models
         [MaxLength(DataModelsConstants.MaxLengthCarFeature)]
         public string Name { get; set; }
 
-        public virtual ICollection<Car> Cars
+        public virtual ICollection<CarAd> Cars
         {
             get { return this.cars; }
             set { this.cars = value; }
