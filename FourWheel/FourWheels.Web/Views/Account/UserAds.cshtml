@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FourWheels.Web.Models.CarViewModels.CarAdBasicInfoViewModel>
+@Styles.Render("~/Content/kendoCss")
+
+@if (Model.Count() > 0)
+{
+    <h1 class="text-center">Your Ads</h1>
+
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+        @(Html.Kendo().Grid(Model)
+        .Name("Ads")
+        .Columns(columns =>
+        {
+            columns.Bound(e => e.Brand).Title("Brand").Width(160);
+            columns.Bound(e => e.Model).Title("Model").Width(160);
+            columns.Bound(e => e.ManufactureYear).Title("Manufacture year").Width(160);
+            columns.Bound(e => e.CarFuel).Title("Fuel").Width(160);
+            columns.Template(e => @Html.ActionLink("Delete", "DeleteCarAd", "CarAd", new { id = e.CarAdId }, new { @class = "k-button k-button-icontext k-grid-delete" })).Width(60);
+        })
+    .HtmlAttributes(new { style = "height: 300px;" })
+    .Pageable(pageable => pageable
+       .Input(true)
+       .Numeric(false)
+     )
+    .Sortable()
+    .Scrollable(scr => scr.Height(200))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .Model(model => model.Id(p => p.CarAdId))
+     )
+        )
+    </div>
+}
+else
+{
+    <h2>You still does not have any ads.</h2>
+}
+
+<div class="text-center">
+    <button class="btn btn-default btn-lg text-right">
+        <span class="glyphicon glyphicon-plus"></span>  Add ad
+    </button>
+</div>
+
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/kendo")
+    @Html.Kendo().DeferredScripts()
+}
