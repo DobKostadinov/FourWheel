@@ -45,13 +45,16 @@ namespace FourWheels.Services
             return this.carsAdsRepo.All;
         }
 
+        public IQueryable<CarAd> GetLastFiveAddedAds()
+        {
+            return this.carsAdsRepo.All.OrderByDescending(x => x.CreatedOn).Take(4);
+        }
+
         public CarAd GetAdById(Guid id)
         {
            return this.carsAdsRepo.All.FirstOrDefault(x => x.Id == id);
         }
-
-
-
+        
         public void AddNewCarAd(
            string title,
            Guid carModelId,
@@ -96,6 +99,15 @@ namespace FourWheels.Services
             };
 
             this.carsAdsRepo.Add(newCarAd);
+            this.unitOfWork.Commit();
+        }
+
+        public void DeleteAd(Guid id)
+        {
+            var adForDeleting = this.carsAdsRepo.GetById(id);
+
+            this.carsAdsRepo.Delete(adForDeleting);
+
             this.unitOfWork.Commit();
         }
     }

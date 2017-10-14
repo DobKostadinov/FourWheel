@@ -54,8 +54,10 @@
     <Compile Include="Contracts\ICarAdServices.cs" />
     <Compile Include="Contracts\IService.cs" />
     <Compile Include="Contracts\ITownServices.cs" />
+    <Compile Include="Contracts\IUserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TownServices.cs" />
+    <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FourWheels.Data.Models\FourWheels.Data.Models.csproj">
