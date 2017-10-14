@@ -1,0 +1,72 @@
+﻿@model FourWheels.Web.Models.UserViewModels.UserDetailsViewModel
+
+<h1>@Model.Username</h1>
+<h1>@Model.Email</h1>
+<h1>@Model.PhoneNumber</h1>
+<h1>@Model.FullName</h1>
+
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editUserModal">
+    <span class="glyphicon glyphicon-pencil"></span>  Edit
+</button>
+
+<div class="modal fade" id="editUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit account info</h3>
+            </div>
+
+            <div class="modal-body">
+                @using (Ajax.BeginForm("UpdateUserInfo", "Account", null, new AjaxOptions
+                {
+                    HttpMethod = "Post",
+                    OnSuccess = "OnSuccess"
+                }, 
+                new { @class = "form-group center-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.FullName, new { @class = "col-2 col-form-label" })
+                            <br />
+                            @Html.EditorFor(x => x.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email, new { @class = "col-2 col-form-label" })
+                            <br />
+                            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-2 col-form-label" })
+                            <br />
+                            @Html.EditorFor(x => x.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function OnSuccess() {
+        $('#editUserModal').modal('hide');
+        setTimeout(function () {
+            location.reload(); 
+        }, 1000); 
+    }
+    
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/unobtrusiveJQ")
+}
