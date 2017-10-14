@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using System.Collections.Generic;
 
-
 using FourWheels.Data.Models;
 using FourWheels.Web.Models.CarViewModels;
 using FourWheels.Services.Contracts;
@@ -50,12 +49,16 @@ namespace FourWheels.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult BrowseCarAds()
         {
             var ads = this.carAdServices
                .GetAll()
                .ProjectTo<CarAdBasicInfoViewModel>()
                .ToList();
+
+            Guard.WhenArgument(ads, "ads").IsNull().Throw();
+
             var model = new CarAdViewModel
             {
                 CarAdBasicInfo = ads
@@ -65,14 +68,17 @@ namespace FourWheels.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult LoadAdFullDetails(Guid id)
         {
             var specifiedAd = this.carAdServices.GetAdById(id);
+
+            Guard.WhenArgument(specifiedAd, "specifiedAd").IsNull().Throw();
+
             var user = specifiedAd.User;
-      
+
             var adFullView = this.mapper.Map<CarAdFullInfoViewModel>(specifiedAd);
             var userInfo = this.mapper.Map<UserDetailsViewModel>(user);
-
 
             var model = new CarAdFullDetailsViewModel
             {
@@ -81,11 +87,11 @@ namespace FourWheels.Web.Controllers
             };
 
             return this.View(model);
-
         }
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult AddAd()
         {
             ICollection<SelectListItem> carBrandsDropdown = new List<SelectListItem>();
@@ -103,7 +109,6 @@ namespace FourWheels.Web.Controllers
             }
 
             this.ViewBag.CarBrandsDropdown = carBrandsDropdown;
-
 
             ICollection<SelectListItem> townsDropDown = new List<SelectListItem>();
             IEnumerable<Town> townsFromDb = this.townServices.GetAllTowns();
@@ -126,6 +131,8 @@ namespace FourWheels.Web.Controllers
                 .ProjectTo<CarFeatureInputViewModel>()
                 .ToList();
 
+            Guard.WhenArgument(allFeatures, "allFeatures").IsNull().Throw();
+
             var model = new CarAdInputModel
             {
                 CarFeatures = allFeatures
@@ -135,6 +142,7 @@ namespace FourWheels.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult GetModelsByBrand(string id)
         {
             var brandIdAsGuid = Guid.Parse(id);
@@ -153,10 +161,12 @@ namespace FourWheels.Web.Controllers
                 });
             }
 
-            return Json(carModelsDropdown.OrderBy(x => x.Text), JsonRequestBehavior.AllowGet);
+            return this.Json(carModelsDropdown.OrderBy(x => x.Text), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult AddAd(CarAdInputModel model)
         {
             var userId = User.Identity.GetUserId();
@@ -167,6 +177,8 @@ namespace FourWheels.Web.Controllers
                 .CarFeatures
                 .Where(x => x.IsChecked == true)
                 .Select(x => x.Id);
+
+            Guard.WhenArgument(selectedCarFeaturesIds, "selectedCarFeaturesIds").IsNull().Throw();
 
             this.carAdServices.AddNewCarAd(
                 model.Title,
@@ -183,16 +195,18 @@ namespace FourWheels.Web.Controllers
                 model.CarImageUrl, 
                 userId);
 
+            return this.RedirectToAction("BrowseCarAds", "CarAd");
+        }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult DeleteCarAd(string id)
+        {
+            var adIdAsGuid = Guid.Parse(id);
 
-            //var userId = User.Identity.GetUserId();
-            //var newCar = new Car();
-            //newCar = this.mapper.Map(model, newCar);
-            //newCar.UserId = userId;
+            this.carAdServices.DeleteAd(adIdAsGuid);
 
-            //this.carServices.AddNewCar(newCar);
-
-            return RedirectToAction("BrowseCarAds", "CarAd");
+            return this.RedirectToAction("UserAds", "Account");
         }
     }
 }

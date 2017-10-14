@@ -2,6 +2,7 @@
 
 @using (Html.BeginForm("AddAd", "CarAd", FormMethod.Post, new { @class = "form-group center-form" }))
 {
+    @Html.AntiForgeryToken()
     <form class="form-horizontal">
         <fieldset class="form-group row">
             <legend>Add new car</legend>
@@ -12,8 +13,6 @@
                     @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
                 </div>
-                
-
                 @Html.Label("Brand", new { @class = "col-2 col-form-label" })
                 <br />
                 @Html.DropDownList("brandsDropDown", this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
@@ -24,13 +23,15 @@
                 <br />
                 <div id="modelsDropDown-container">
                     @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.CarModelId, null, new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
                 <br />
-                @Html.EnumDropDownListFor(x => x.CarType, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CarType, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
@@ -50,13 +51,14 @@
             <div class="form-group">
                 @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
                 <br />
-                @Html.EnumDropDownListFor(x => x.FuelType, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(x => x.FuelType, "--Select fuel type--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.FuelType, null, new { @class = "text-danger" })
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(x => x.TransmissionType, new { @class = "col-2 col-form-label" })
                 <br />
-                @Html.EnumDropDownListFor(x => x.TransmissionType, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(x => x.TransmissionType, "--Select transmission type--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.TransmissionType, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
@@ -76,6 +78,7 @@
                 @Html.LabelFor(x => x.TownId, new { @class = "col-2 col-form-label" })
                 <br />
                 @Html.DropDownListFor(x => x.TownId, this.ViewBag.TownsDropDown as IEnumerable<SelectListItem>, "--Select town--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.TownId, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
@@ -89,14 +92,15 @@
                 @Html.LabelFor(x => x.AdditionalInfo, new { @class = "col-2 col-form-label" })
                 <br />
                 @Html.TextAreaFor(x => x.AdditionalInfo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.AdditionalInfo, null, new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(x => x.CarImageUrl, new { @class = "col-2 col-form-label" })
                 <br />
                 @Html.TextBoxFor(x => x.CarImageUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CarImageUrl, null, new { @class = "text-danger" })
             </div>
-
 
             <div class="row">
                 <div class="col-sm-12">
@@ -114,6 +118,7 @@
 <script type="text/javascript">
     $(document).ready(() => {
         $('#brandsDropDown').change(() => {
+            event.preventDefault();
             var id = $('#brandsDropDown').val();
             $.ajax({
                 type: "POST",
@@ -134,3 +139,7 @@
         })
     })
 </script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

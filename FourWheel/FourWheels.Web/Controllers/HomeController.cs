@@ -1,36 +1,47 @@
-﻿using System.Web.Mvc;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Bytes2you.Validation;
+using FourWheels.Services.Contracts;
+using FourWheels.Web.Models.CarViewModels;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace FourWheels.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICarAdServices carAdServices;
+        private readonly IMapper mapper;
+
+        public HomeController(ICarAdServices carAdServices, IMapper mapper)
+        {
+            Guard.WhenArgument(carAdServices, "carAdServices").IsNull().Throw();
+            Guard.WhenArgument(mapper, "mapper").IsNull().Throw();
+
+            this.carAdServices = carAdServices;
+            this.mapper = mapper;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [OutputCache(Duration = 60)]
         public ActionResult HomeIndex()
         {
-            return View();
-        }
+            var lastAds = this.carAdServices
+              .GetLastFiveAddedAds()
+              .ProjectTo<CarAdBasicInfoViewModel>()
+              .ToList();
 
-        public ActionResult BrowseWines()
-        {
-            return View();
-        }
+            Guard.WhenArgument(lastAds, "lastAds").IsNull().Throw();
 
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return this.View(lastAds);
         }
     }
 }

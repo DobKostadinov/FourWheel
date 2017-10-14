@@ -1,6 +1,15 @@
-﻿@{ 
+﻿@model IEnumerable<FourWheels.Web.Models.CarViewModels.CarAdBasicInfoViewModel>
+
+@{ 
     ViewBag.Title = "Welcome";
 }
 
-<h2>HomeIndex</h2>
+<h1>Latest car ads</h1>
+
+<div class="row" align="center">
+    @foreach (var item in @Model)
+    {
+        @Html.Partial("_CarAdBasicInfoPartial", item);
+    }
+</div>
 
