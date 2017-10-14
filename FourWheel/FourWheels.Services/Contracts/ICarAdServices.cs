@@ -11,6 +11,8 @@ namespace FourWheels.Services.Contracts
     {
         IQueryable<CarAd> GetAll();
 
+        IQueryable<CarAd> GetLastFiveAddedAds();
+
         CarAd GetAdById(Guid id);
 
         void AddNewCarAd(
@@ -27,5 +29,7 @@ namespace FourWheels.Services.Contracts
             string additionalInfo,
             string carImageUrl,
             string userId);
+
+        void DeleteAd(Guid id);
     }
 }
