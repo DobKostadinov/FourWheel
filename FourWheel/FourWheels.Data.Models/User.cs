@@ -9,6 +9,7 @@ using FourWheels.Data.Models.Contracts;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using FourWheels.Common;
 
 namespace FourWheels.Data.Models
 {
@@ -20,7 +21,11 @@ namespace FourWheels.Data.Models
         {
             this.carAds = new HashSet<CarAd>();
         }
-     
+
+        [MinLength(DataModelsConstants.MinLengthUserFullName)]
+        [MaxLength(DataModelsConstants.MaxLengthUserFullName)]
+        public string FullName { get; set; }
+
         [Index]
         public bool IsDeleted { get; set; }
 
