@@ -33,5 +33,14 @@
         // CarFeature
         public const int MinLengthCarFeature = 1;
         public const int MaxLengthCarFeature = 50;
+
+        // User
+        public const int MinLengthUsername = 2;
+        public const int MaxLengthUsername = 20;
+        public const int MinLengthUserFullName = 3;
+        public const int MaxLengthUserFullName = 30;
+        public const int MinLengthPassword = 6;
+        public const int MaxLengthPassword = 100;
+        public const string PhoneRegex = @"[\d]{10}";
     }
 }
