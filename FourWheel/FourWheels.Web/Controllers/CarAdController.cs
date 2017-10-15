@@ -59,12 +59,72 @@ namespace FourWheels.Web.Controllers
 
             Guard.WhenArgument(ads, "ads").IsNull().Throw();
 
-            var model = new CarAdViewModel
-            {
-                CarAdBasicInfo = ads
-            };
 
-            return this.View(model);
+            return this.View(ads);
+        }
+
+        [AllowAnonymous]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult LoadSearchBar()
+        {
+            this.ViewBag.CarBrandsDropdown = this.GetAllBrandsAsDropDown();
+            this.ViewBag.TownsDropDown = this.GetAllTownsAsDropDown();
+
+            return this.PartialView("_SearchBarPartial");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult SearchBarResult(SearchBarInputViewModel searchInputModel)
+        {
+            var adsDb = this.carAdServices.GetAll();
+
+            if (searchInputModel != null)
+            {
+                if (!string.IsNullOrEmpty(searchInputModel.CarBrandId))
+                {
+                    var carBrandIdAsGuid = Guid.Parse(searchInputModel.CarBrandId);
+                    adsDb = adsDb.Where(x => x.CarModel.CarBrand.Id == carBrandIdAsGuid);
+                }
+
+                if (!string.IsNullOrEmpty(searchInputModel.CarModelId))
+                {
+                    var carModelIdAsGuid = Guid.Parse(searchInputModel.CarModelId);
+                    adsDb = adsDb.Where(x => x.CarModel.Id == carModelIdAsGuid);
+                }
+
+
+                if (searchInputModel.CarType != 0)
+                {
+                    adsDb = adsDb.Where(x => x.CarType == searchInputModel.CarType);
+                }
+
+                if (searchInputModel.FuelType != 0)
+                {
+                    adsDb = adsDb.Where(x => x.FuelType == searchInputModel.FuelType);
+                }
+
+                if (searchInputModel.FuelType != 0)
+                {
+                    adsDb = adsDb.Where(x => x.FuelType == searchInputModel.FuelType);
+                }
+
+                if (searchInputModel.ManufactureYear != 0)
+                {
+                    adsDb = adsDb.Where(x => x.ManufactureYear == searchInputModel.ManufactureYear);
+                }
+
+                var ads = adsDb
+                    .ProjectTo<CarAdBasicInfoViewModel>()
+                    .ToList();
+
+                return this.View("BrowseCarAds", ads);
+            }
+  
+            else
+            {
+                return this.RedirectToAction("BrowseCarAds");
+            }
         }
 
         [HttpGet]
@@ -89,42 +149,16 @@ namespace FourWheels.Web.Controllers
             return this.View(model);
         }
 
+        
+
+
 
         [HttpGet]
         [Authorize]
         public ActionResult AddAd()
-        {
-            ICollection<SelectListItem> carBrandsDropdown = new List<SelectListItem>();
-            IEnumerable<CarBrand> carBrandsFromDb = this.brandServices.GetAllBrands();
-
-            Guard.WhenArgument(carBrandsFromDb, "carBrandsFromDb").IsNull().Throw();
-
-            foreach (var brand in carBrandsFromDb)
-            {
-                carBrandsDropdown.Add(new SelectListItem
-                {
-                    Text = brand.Brand,
-                    Value = brand.Id.ToString()
-                });
-            }
-
-            this.ViewBag.CarBrandsDropdown = carBrandsDropdown;
-
-            ICollection<SelectListItem> townsDropDown = new List<SelectListItem>();
-            IEnumerable<Town> townsFromDb = this.townServices.GetAllTowns();
-
-            Guard.WhenArgument(townsFromDb, "townsFromDb").IsNull().Throw();
-
-            foreach (var town in townsFromDb)
-            {
-                townsDropDown.Add(new SelectListItem
-                {
-                    Text = town.Name,
-                    Value = town.Id.ToString()
-                });
-            }
-
-            this.ViewBag.TownsDropDown = townsDropDown.OrderBy(x => x.Text);
+        {        
+            this.ViewBag.CarBrandsDropdown = this.GetAllBrandsAsDropDown();
+            this.ViewBag.TownsDropDown = this.GetAllTownsAsDropDown();
 
             var allFeatures = this.carFeatureServices
                 .GetAllCarFeatures()
@@ -207,6 +241,50 @@ namespace FourWheels.Web.Controllers
             this.carAdServices.DeleteAd(adIdAsGuid);
 
             return this.RedirectToAction("UserAds", "Account");
+        }
+
+        [ChildActionOnly]
+        private ICollection<SelectListItem> GetAllBrandsAsDropDown()
+        {
+            ICollection<SelectListItem> carBrandsDropdown = new List<SelectListItem>();
+            IEnumerable<CarBrand> carBrandsFromDb = this.brandServices.GetAllBrands();
+
+            Guard.WhenArgument(carBrandsFromDb, "carBrandsFromDb").IsNull().Throw();
+
+            foreach (var brand in carBrandsFromDb)
+            {
+                carBrandsDropdown.Add(new SelectListItem
+                {
+                    Text = brand.Brand,
+                    Value = brand.Id.ToString()
+                });
+            }
+
+            carBrandsDropdown.OrderBy(x => x.Text);
+
+            return carBrandsDropdown;
+        }
+
+        [ChildActionOnly]
+        public ICollection<SelectListItem> GetAllTownsAsDropDown()
+        {
+            ICollection<SelectListItem> townsDropDown = new List<SelectListItem>();
+            IEnumerable<Town> townsFromDb = this.townServices.GetAllTowns();
+
+            Guard.WhenArgument(townsFromDb, "townsFromDb").IsNull().Throw();
+
+            foreach (var town in townsFromDb)
+            {
+                townsDropDown.Add(new SelectListItem
+                {
+                    Text = town.Name,
+                    Value = town.Id.ToString()
+                });
+            }
+
+            townsDropDown.OrderBy(x => x.Text);
+
+            return townsDropDown;
         }
     }
 }

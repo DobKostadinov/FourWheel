@@ -13,93 +13,96 @@
                     @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
                 </div>
-                @Html.Label("Brand", new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.DropDownList("brandsDropDown", this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.CarModelId, new { @class = "col-2 col-form-label" })
-                <br />
-                <div id="modelsDropDown-container">
-                    @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.CarModelId, null, new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Brand", new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.DropDownList("brandsDropDown", this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.CarType, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.CarModelId, new { @class = "col-2 col-form-label" })
+                    <br />
+                    <div id="modelsDropDown-container">
+                        @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.CarModelId, null, new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.CarType, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.Mileage, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.TextBoxFor(x => x.Mileage, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Mileage, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.EnumDropDownListFor(x => x.FuelType, "--Select fuel type--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.FuelType, null, new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.TransmissionType, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.EnumDropDownListFor(x => x.TransmissionType, "--Select transmission type--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.TransmissionType, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Mileage, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextBoxFor(x => x.Mileage, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Mileage, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.CarFeatures, new { @class = "col-2 col-form-label" })
-                @for (int i = 0; i < Model.CarFeatures.Count; i++)
+                <div class="form-group">
+                    @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.EnumDropDownListFor(x => x.FuelType, "--Select fuel type--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.FuelType, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.TransmissionType, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.EnumDropDownListFor(x => x.TransmissionType, "--Select transmission type--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.TransmissionType, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.CarFeatures, new { @class = "col-2 col-form-label" })
+                    @for (int i = 0; i < Model.CarFeatures.Count; i++)
                 {
-                    <p>
-                        @Html.CheckBoxFor(m => m.CarFeatures[i].IsChecked)
-                        @Html.Label(Model.CarFeatures[i].Name)
-                        @Html.HiddenFor(m => m.CarFeatures[i].Id)
-                        @Html.HiddenFor(m => m.CarFeatures[i].Name)
-                    </p>
-                }
-            </div>
+                        <p>
+                            @Html.CheckBoxFor(m => m.CarFeatures[i].IsChecked)
+                            @Html.Label(Model.CarFeatures[i].Name)
+                            @Html.HiddenFor(m => m.CarFeatures[i].Id)
+                            @Html.HiddenFor(m => m.CarFeatures[i].Name)
+                        </p>
+                    }
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.TownId, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.DropDownListFor(x => x.TownId, this.ViewBag.TownsDropDown as IEnumerable<SelectListItem>, "--Select town--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.TownId, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.TownId, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.DropDownListFor(x => x.TownId, this.ViewBag.TownsDropDown as IEnumerable<SelectListItem>, "--Select town--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.TownId, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.Price, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Price, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.AdditionalInfo, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.TextAreaFor(x => x.AdditionalInfo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.AdditionalInfo, null, new { @class = "text-danger" })
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.AdditionalInfo, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextAreaFor(x => x.AdditionalInfo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.AdditionalInfo, null, new { @class = "text-danger" })
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(x => x.CarImageUrl, new { @class = "col-2 col-form-label" })
-                <br />
-                @Html.TextBoxFor(x => x.CarImageUrl, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.CarImageUrl, null, new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(x => x.CarImageUrl, new { @class = "col-2 col-form-label" })
+                    <br />
+                    @Html.TextBoxFor(x => x.CarImageUrl, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.CarImageUrl, null, new { @class = "text-danger" })
+                </div>
             </div>
 
             <div class="row">

@@ -235,7 +235,8 @@
     <Compile Include="Models\CarViewModels\CarAdFullInfoViewModel.cs" />
     <Compile Include="Models\CarViewModels\CarFeatureInputViewModel.cs" />
     <Compile Include="Models\CarViewModels\CarAdInputModel.cs" />
-    <Compile Include="Models\CarViewModels\CarAdViewModel.cs" />
+    <Compile Include="Models\CarViewModels\SearchBarInputViewModel.cs" />
+    <Compile Include="Models\CarViewModels\SearchBarViewModel.cs" />
     <Compile Include="Models\ManageViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\IndexViewModel.cs" />
@@ -305,6 +306,8 @@
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.eot" />
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.ttf" />
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.woff" />
+    <None Include="Properties\PublishProfiles\fourwheels - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\fourwheels - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo.Mvc.xml" />
@@ -358,6 +361,7 @@
     <Content Include="Views\Shared\_UserDetailsPartial.cshtml" />
     <Content Include="Views\Account\UserAds.cshtml" />
     <Content Include="Views\Account\UserDetails.cshtml" />
+    <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

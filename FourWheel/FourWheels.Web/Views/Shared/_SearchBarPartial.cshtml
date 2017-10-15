@@ -1,0 +1,79 @@
+﻿@model FourWheels.Web.Models.CarViewModels.SearchBarInputViewModel
+
+@using (Ajax.BeginForm("SearchBarResult", "CarAd", null,
+                new AjaxOptions
+                {
+                    HttpMethod = "Post",
+                },
+                new { @class = "form-group center-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(x => x.CarBrandId, new { @class = "col-2 col-form-label" })
+            <br />
+            @Html.DropDownListFor(x => x.CarBrandId, this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.CarModelId, new { @class = "col-2 col-form-label" })
+            <br />
+            <div id="modelsDropDown-container">
+                @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
+            <br />
+            @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
+            <br />
+            @Html.EnumDropDownListFor(x => x.FuelType, "--Select car type--", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
+            <br />
+            @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+}
+
+
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        $('#brandsDropDown').change(() => {
+            event.preventDefault();
+            var id = $('#brandsDropDown').val();
+            $.ajax({
+                type: "POST",
+                url: "/CarAd/GetModelsByBrand",
+                data: { id: id },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var region = "<select class='form-control' id='CarModelId' name='CarModelId'>";
+                    region = region + '<option value="">--Select Model--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        region = region + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    region = region + '</select>';
+                    $('#modelsDropDown-container').html(region);
+                }
+            });
+        })
+    })
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
