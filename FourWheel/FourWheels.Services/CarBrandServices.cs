@@ -1,12 +1,11 @@
-﻿using Bytes2you.Validation;
+﻿using System.Collections.Generic;
+using System.Linq;
+
 using FourWheels.Data.Models;
 using FourWheels.Data.Repositories;
 using FourWheels.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Bytes2you.Validation;
 
 namespace FourWheels.Services
 {

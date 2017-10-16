@@ -1,14 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using FourWheels.Data.Models;
+using FourWheels.Data.Models.Enums;
 using FourWheels.Data.Repositories;
 using FourWheels.Data.UnitOfWork;
 using FourWheels.Services.Contracts;
 
 using Bytes2you.Validation;
-using System;
-using FourWheels.Data.Models.Enums;
 
 namespace FourWheels.Services
 {

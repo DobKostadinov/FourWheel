@@ -1,13 +1,11 @@
-﻿using Bytes2you.Validation;
+﻿using System.Linq;
+
 using FourWheels.Data.Models;
 using FourWheels.Data.Repositories;
 using FourWheels.Data.UnitOfWork;
 using FourWheels.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Bytes2you.Validation;
 
 namespace FourWheels.Services
 {
@@ -35,7 +33,7 @@ namespace FourWheels.Services
 
         public IQueryable<CarAd> AllUserAds(string userId)
         {
-            return this.carAdServices.GetAll().Where(x => x.UserId == userId);
+            return this.GetUserById(userId).CarAds.AsQueryable();
         }
 
         public void UpdateUserInfo(User user)
