@@ -3,7 +3,9 @@
 }
 
 
-<div class="row">
-    <h1> S & B</h1>
-    @Html.ActionLink("Redirect", "HomeIndex", "Home")
+<div class="row text-center" id="greetingDiv">
+    <h1>All roads lead to FourWheels</h1>
+    <br />
+    <p>@Html.ActionLink("Take Me There", "HomeIndex", "Home", null, new { @class = "btn-success btn-lg" })</p>
+
 </div>

@@ -13,11 +13,6 @@ namespace FourWheels.Web
             bundles.Add(new ScriptBundle("~/bundles/unobtrusiveJQ").Include(
                         "~/Scripts/Kendo/jquery.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/unobtrusiveJQ").Include(
-                     "~/Scripts/jquery.unobtrusive-ajax.min.js"));
-
-
-            // jquery.unobtrusive-ajax.min
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -28,11 +23,6 @@ namespace FourWheels.Web
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
                       "~/Scripts/Kendo/kendo.web.min.js",
                       "~/Scripts/Kendo/kendo.aspnetmvc.min.js"));
-
-
-
-
-
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -45,6 +35,9 @@ namespace FourWheels.Web
                       "~/Content/Kendo/kendo.bootstrap.min.css",
                       "~/Content/Kendo/kendo.common.min.css"));
 
+
+            bundles.Add(new StyleBundle("~/Content/welcomeLayout").Include(
+                      "~/Content/welcomeLayout.css"));
 
         }
     }

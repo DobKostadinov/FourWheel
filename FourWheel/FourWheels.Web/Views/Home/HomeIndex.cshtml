@@ -1,35 +1,20 @@
 ﻿@model IEnumerable<FourWheels.Web.Models.CarViewModels.CarAdBasicInfoViewModel>
 
-@{ 
+@{
     ViewBag.Title = "Welcome";
 }
 
-<div id="home-picture-container">
-    <div class="row">
-        <div class="center-align">
-            <h1>FourWheels</h1>
-            <h4>Еasily sell the old one and buy the new one</h4>
-            @if (this.User.Identity.IsAuthenticated)
-            {
-                @Html.ActionLink("My ads", "UserAds", "Account", null)
-            }
-            else
-            {
-                @Html.ActionLink("Register", "Register", "Account", null)
-            }
-            <section class="quick-travel-search">
-                @*@Html.Action(nameof(SearchController.Search), "Search")*@
-            </section>
-        </div>
-    </div>
+
+<div class="container-fluid">
+    @Html.Action("LoadSearchBar", "CarAd", null)
 </div>
 
-<h1>Latest car ads</h1>
-
-<div class="row" align="center">
-    @foreach (var item in @Model)
-    {
-        @Html.Partial("_CarAdBasicInfoPartial", item);
-    }
+<div class="container-fluid">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Latest car ads</legend>
+        @foreach (var item in @Model)
+        {
+            @Html.Partial("_CarAdBasicInfoPartial", item);
+        }
+    </fieldset>
 </div>
-

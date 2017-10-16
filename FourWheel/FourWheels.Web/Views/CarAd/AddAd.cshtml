@@ -3,10 +3,10 @@
 @using (Html.BeginForm("AddAd", "CarAd", FormMethod.Post, new { @class = "form-group center-form" }))
 {
     @Html.AntiForgeryToken()
-    <form class="form-horizontal">
-        <fieldset class="form-group row">
-            <legend>Add new car</legend>
-            <div class="form-group">
+    <div class="container-fluid">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Car ads</legend>
+            <div class="col-6 col-md-4 form-line">
                 <div class="form-group">
                     @Html.LabelFor(x => x.Title, new { @class = "col-2 col-form-label" })
                     <br />
@@ -35,7 +35,8 @@
                     @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.CarType, null, new { @class = "text-danger" })
                 </div>
-
+            </div>
+            <div class="col-6 col-md-4 form-line">
                 <div class="form-group">
                     @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
                     <br />
@@ -62,19 +63,9 @@
                     @Html.EnumDropDownListFor(x => x.TransmissionType, "--Select transmission type--", new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.TransmissionType, null, new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="col-6 col-md-4 form-line">
 
-                <div class="form-group">
-                    @Html.LabelFor(x => x.CarFeatures, new { @class = "col-2 col-form-label" })
-                    @for (int i = 0; i < Model.CarFeatures.Count; i++)
-                {
-                        <p>
-                            @Html.CheckBoxFor(m => m.CarFeatures[i].IsChecked)
-                            @Html.Label(Model.CarFeatures[i].Name)
-                            @Html.HiddenFor(m => m.CarFeatures[i].Id)
-                            @Html.HiddenFor(m => m.CarFeatures[i].Name)
-                        </p>
-                    }
-                </div>
 
                 <div class="form-group">
                     @Html.LabelFor(x => x.TownId, new { @class = "col-2 col-form-label" })
@@ -104,7 +95,20 @@
                     @Html.ValidationMessageFor(x => x.CarImageUrl, null, new { @class = "text-danger" })
                 </div>
             </div>
-
+            <legend class="scheduler-border">Car features</legend>
+            <div class="col-6 col-md-4">
+                <div class="form-group">
+                    @for (int i = 0; i < Model.CarFeatures.Count; i++)
+                    {
+                        <p>
+                            @Html.CheckBoxFor(m => m.CarFeatures[i].IsChecked)
+                            @Html.Label(Model.CarFeatures[i].Name)
+                            @Html.HiddenFor(m => m.CarFeatures[i].Id)
+                            @Html.HiddenFor(m => m.CarFeatures[i].Name)
+                        </p>
+                    }
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-center">
@@ -113,7 +117,7 @@
                 </div>
             </div>
         </fieldset>
-    </form>
+    </div>
 }
 
 @Scripts.Render("~/bundles/jquery")

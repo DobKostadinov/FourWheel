@@ -1,49 +1,52 @@
 ﻿@model FourWheels.Web.Models.CarViewModels.SearchBarInputViewModel
 
 @using (Ajax.BeginForm("SearchBarResult", "CarAd", null,
-                new AjaxOptions
-                {
-                    HttpMethod = "Post",
-                },
-                new { @class = "form-group center-form" }))
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "Post",
+                                        },
+                                        new { @class = "form-group center-form" }))
 {
     @Html.AntiForgeryToken()
 
-    <form class="form-horizontal">
-        <div class="form-group">
-            @Html.LabelFor(x => x.CarBrandId, new { @class = "col-2 col-form-label" })
-            <br />
-            @Html.DropDownListFor(x => x.CarBrandId, this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.CarModelId, new { @class = "col-2 col-form-label" })
-            <br />
-            <div id="modelsDropDown-container">
-                @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Search ads</legend>
+        <div class="col-6 col-md-4 form-line">
+            <div class="form-group">
+                @Html.DropDownListFor(x => x.CarBrandId, this.ViewBag.CarBrandsDropdown as IEnumerable<SelectListItem>, "--Select Car Brand--", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <div id="modelsDropDown-container">
+                    @Html.DropDownListFor(x => x.CarModelId, new List<SelectListItem>(), "--Select Brand First--", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 form-line">
+            <div class="form-group">
+                @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <div class="form-group">
+                    @Html.EnumDropDownListFor(x => x.FuelType, "--Select car type--", new { @class = "form-control" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.CarType, new { @class = "col-2 col-form-label" })
-            <br />
-            @Html.EnumDropDownListFor(x => x.CarType, "--Select car type--", new { @class = "form-control" })
+        <div class="col-6 col-md-4 form-line">
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control", @placeholder = "Manufacture year" })
+                @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
         </div>
+    </fieldset>
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.FuelType, new { @class = "col-2 col-form-label" })
-            <br />
-            @Html.EnumDropDownListFor(x => x.FuelType, "--Select car type--", new { @class = "form-control" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.ManufactureYear, new { @class = "col-2 col-form-label" })
-            <br />
-            @Html.TextBoxFor(x => x.ManufactureYear, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.ManufactureYear, null, new { @class = "text-danger" })
-        </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+    @*<form>
+       
+    </form>*@
 }
 
 

@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - FourWheels</title>
     @Styles.Render("~/Content/css")
 </head>
-<body>
+<body id="welcomePage">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -21,7 +21,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "HomeIndex", "Home")</li>
                     <li>@Html.ActionLink("Browse Car Ads", "BrowseCarAds", "CarAd")</li>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Delete ads", "DeleteAds", "Admin", new { area = "Admin" }, null)</li>
+                    }s
+                    @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Add ad", "AddAd", "CarAd")</li>
                     }
@@ -39,7 +43,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap") 
 
     @RenderSection("scripts", required: false)
 </body>

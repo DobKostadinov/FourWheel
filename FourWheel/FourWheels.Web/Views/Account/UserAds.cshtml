@@ -29,13 +29,15 @@
         .Ajax()
         .PageSize(10)
         .Model(model => model.Id(p => p.CarAdId))
-     )
-        )
+     ).Deferred())
     </div>
 }
 else
 {
-    <h2>You still does not have any ads.</h2>
+    <div class="row text-center">
+        <h2>You still does not have any ads.</h2>
+    </div>
+    
 }
 
 <div class="text-center">

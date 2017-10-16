@@ -24,6 +24,7 @@ namespace FourWheels.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        //[OutputCache(Duration = 60)]
         public ActionResult Index()
         {
             return this.View();
@@ -31,7 +32,6 @@ namespace FourWheels.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [OutputCache(Duration = 60)]
         public ActionResult HomeIndex()
         {
             var lastAds = this.carAdServices

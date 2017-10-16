@@ -1,10 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+
 }
 
-.welcomePage {
-    background-image: url("images/Wine Computer Wallpapers Desktop Backgrounds  2880x1800  ID431793.jpg");
+#welcomePage {
+    background-image: url("images/background-tr.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
 }
 /* Set padding to keep content from hitting the edges */
@@ -26,4 +30,32 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+#noRecords {
+    color: black;
+    text-decoration: solid;
+}
+
+.form-group label {
+    color: black;
+}
+
+fieldset.scheduler-border {
+    color: black;
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px;
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    color: black;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
 }

@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FourWheels</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/welcomeLayout")
 
 </head>
-<body class="welcomePage">
-    <div class="container body-content">
+<body id="welcomePage">
+    <div class="container-fluid text-center">
         @RenderBody()
     </div>
 </body>

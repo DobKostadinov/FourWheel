@@ -1,0 +1,16 @@
+﻿#welcomePage {
+    background-image: url("images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100%;
+}
+
+#greetingDiv {
+    color: white;
+    margin-top: 20%;
+}
+
+#buttonHolder {
+    margin-top: 2%;
+}

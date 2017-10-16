@@ -65,6 +65,7 @@ namespace FourWheels.Web.Controllers
 
         [AllowAnonymous]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        //[OutputCache(Duration = 3600)]
         public ActionResult LoadSearchBar()
         {
             this.ViewBag.CarBrandsDropdown = this.GetAllBrandsAsDropDown();

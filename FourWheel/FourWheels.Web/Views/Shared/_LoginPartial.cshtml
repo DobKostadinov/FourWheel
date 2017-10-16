@@ -3,21 +3,33 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                @("Hello " + User.Identity.GetUserName())
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Pofile", "UserDetails", "Account")</li>
-                <li>@Html.ActionLink("My ads", "UserAds", "Account")</li>
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            @if (this.User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="#">
+                        @("Hello " + User.Identity.GetUserName())
+                        <span class="caret"></span>
+                    </a>
+                </li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            </ul>
-        </li>
-    </ul>
+            }
+            else
+            {
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        @("Hello " + User.Identity.GetUserName())
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Pofile", "UserDetails", "Account")</li>
+                        <li>@Html.ActionLink("My ads", "UserAds", "Account")</li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    </ul>
+                </li>
+            }
+        </ul>
     }
 }
 else
