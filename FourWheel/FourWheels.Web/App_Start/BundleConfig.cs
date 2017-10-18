@@ -21,6 +21,7 @@ namespace FourWheels.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                      "~/Scripts/Kendo/jquery.min.js",
                       "~/Scripts/Kendo/kendo.web.min.js",
                       "~/Scripts/Kendo/kendo.aspnetmvc.min.js"));
 

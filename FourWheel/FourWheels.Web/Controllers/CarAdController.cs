@@ -65,7 +65,7 @@ namespace FourWheels.Web.Controllers
 
         [AllowAnonymous]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        //[OutputCache(Duration = 3600)]
+        [OutputCache(Duration = 3600)]
         public ActionResult LoadSearchBar()
         {
             this.ViewBag.CarBrandsDropdown = this.GetAllBrandsAsDropDown();
@@ -156,6 +156,7 @@ namespace FourWheels.Web.Controllers
 
         [HttpGet]
         [Authorize]
+        [OutputCache(Duration = 3600)]
         public ActionResult AddAd()
         {        
             this.ViewBag.CarBrandsDropdown = this.GetAllBrandsAsDropDown();
@@ -178,6 +179,7 @@ namespace FourWheels.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [OutputCache(Duration = 3600)]
         public ActionResult GetModelsByBrand(string id)
         {
             var brandIdAsGuid = Guid.Parse(id);
@@ -235,6 +237,7 @@ namespace FourWheels.Web.Controllers
 
         [HttpGet]
         [Authorize]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult DeleteCarAd(string id)
         {
             var adIdAsGuid = Guid.Parse(id);

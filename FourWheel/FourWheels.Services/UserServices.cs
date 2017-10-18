@@ -6,6 +6,9 @@ using FourWheels.Data.UnitOfWork;
 using FourWheels.Services.Contracts;
 
 using Bytes2you.Validation;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
 namespace FourWheels.Services
 {
@@ -26,6 +29,11 @@ namespace FourWheels.Services
             this.unitOfWork = unitOfWork;
         }
 
+        public IQueryable<User> GetAllUsers()
+        {
+            return this.usersRepo.AllAndDeleted;
+        }
+
         public User GetUserById(string id)
         {
             return this.usersRepo.All.FirstOrDefault(x => x.Id == id);
@@ -33,13 +41,23 @@ namespace FourWheels.Services
 
         public IQueryable<CarAd> AllUserAds(string userId)
         {
-            return this.GetUserById(userId).CarAds.AsQueryable();
+            return this.GetUserById(userId).CarAds.Where(x => !x.IsDeleted).AsQueryable();
         }
 
         public void UpdateUserInfo(User user)
         {
             this.usersRepo.Update(user);
             this.unitOfWork.Commit();
+        }
+
+        public void DeleteUser(string id)
+        {
+            var userToBeDeleted = this.usersRepo.All.FirstOrDefault(x => x.Id == id);
+            if (userToBeDeleted.IsDeleted != true)
+            {
+                this.usersRepo.Delete(userToBeDeleted);
+                this.unitOfWork.Commit();
+            }
         }
     }
 }

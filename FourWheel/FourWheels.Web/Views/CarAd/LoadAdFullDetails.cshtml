@@ -1,8 +1,23 @@
 ﻿@model FourWheels.Web.Models.CarViewModels.CarAdFullDetailsViewModel
 
-<p>@Model.AdInfo.Title</p>
-<img src =@Model.AdInfo.CarImageURL />
-<p>@Model.AdInfo.Brand @Model.AdInfo.Model</p>
+<div class="container-fluid">
+    <div class=" col-6 col-md-4 form-line">
+        <h2>@Model.AdInfo.Title</h2>
+
+        <h2>@Model.AdInfo.Price &euro;</h2>
+    </div>
+    <div class="class=" col-6 col-md-4">
+        <h2>@Model.AdInfo.Brand @Model.AdInfo.Model</h2>
+    </div>
+
+    <div class="class=" col-6 col-md-4 form-line">
+        <img src=@Model.AdInfo.CarImageURL />
+
+    </div>
+</div>
+
+
+
 <p>@Model.AdInfo.Price</p>
 <p>@Model.AdInfo.CarType</p>
 <p>@Model.AdInfo.ManufactureYear</p>
@@ -15,4 +30,5 @@
 }
 <p>@Model.AdInfo.AdditionalInfo</p>
 <p>@Model.AdInfo.Town</p>
+
 @Html.Partial("_UserDetailsPartial", Model.UserDetails)

@@ -19,15 +19,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "HomeIndex", "Home")</li>
-                    <li>@Html.ActionLink("Browse Car Ads", "BrowseCarAds", "CarAd")</li>
+                    <li>@Html.ActionLink("Home", "HomeIndex", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Browse Car Ads", "BrowseCarAds", "CarAd", new { area = "" }, null)</li>
                     @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Delete ads", "DeleteAds", "Admin", new { area = "Admin" }, null)</li>
+                        <li>@Html.ActionLink("Delete users", "DeleteUsers", "Admin", new { area = "Admin" }, null)</li>
                     }s
                     @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Add ad", "AddAd", "CarAd")</li>
+                        <li>@Html.ActionLink("Add ad", "AddAd", "CarAd", new { area = "" }, null)</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -43,7 +43,10 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendo")
     @Scripts.Render("~/bundles/bootstrap") 
+
+    @Html.Kendo().DeferredScripts()
 
     @RenderSection("scripts", required: false)
 </body>

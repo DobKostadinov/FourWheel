@@ -101,6 +101,7 @@ namespace FourWheels.Web.Controllers
         }
 
         [HttpGet]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult UserAds()
         {
             var userId = User.Identity.GetUserId();
@@ -192,6 +193,12 @@ namespace FourWheels.Web.Controllers
 
             // If we got this far, something failed, redisplay form
             return this.View(model);
+        }
+
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("HomeIndex", "Home");
         }
 
 
@@ -417,16 +424,6 @@ namespace FourWheels.Web.Controllers
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("HomeIndex", "Home");
         }
 
         //

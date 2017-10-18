@@ -82,6 +82,7 @@
     <Compile Include="Services\UserServicesTests\UpdateUserInfo_Should.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -220,6 +220,7 @@
     <Compile Include="App_Start\FourWheelsSqlDbConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Models\UsersViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarAdController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -316,8 +317,7 @@
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.ttf" />
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.woff" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\DeleteAds.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\DeleteUsers.cshtml" />
     <None Include="Properties\PublishProfiles\fourwheels - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\fourwheels - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -379,7 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

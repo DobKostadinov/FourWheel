@@ -13,7 +13,8 @@
                         <span class="caret"></span>
                     </a>
                 </li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                <li>@Html.ActionLink("LogOff", "LogOff", "Account", new { area = "" }, null)</li>
+                @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
             }
             else
             {
@@ -25,7 +26,8 @@
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Pofile", "UserDetails", "Account")</li>
                         <li>@Html.ActionLink("My ads", "UserAds", "Account")</li>
-                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        <li>@Html.ActionLink("LogOff", "LogOff", "Account", new { area = "" }, null)</li>
+                        @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
                     </ul>
                 </li>
             }
